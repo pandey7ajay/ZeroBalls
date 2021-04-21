@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZeroToleranceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ADDRESS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="AddressLine1" Type="varchar(max)" Nullable="false" />
+    <Property Name="AddressLine2" Type="varchar(max)" />
+    <Property Name="Town" Type="varchar(max)" />
+    <Property Name="City" Type="varchar(max)" Nullable="false" />
+    <Property Name="State" Type="varchar(max)" Nullable="false" />
+    <Property Name="Country" Type="varchar(max)" Nullable="false" />
+    <Property Name="Pincode" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CART">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="ProductTotal" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ORDER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="ProductTotal" Type="int" Nullable="false" />
+    <Property Name="OrderNumber" Type="int" Nullable="false" />
+    <Property Name="OrderTimestamp" Type="datetime" Nullable="false" />
+    <Property Name="AddressID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PRODUCT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" Nullable="false" />
+    <Property Name="ThumbnailPicture" Type="varchar(max)" Nullable="false" />
+    <Property Name="Picture1" Type="varchar(max)" Nullable="false" />
+    <Property Name="Picture2" Type="varchar(max)" />
+    <Property Name="Picture3" Type="varchar(max)" />
+    <Property Name="Picture4" Type="varchar(max)" />
+    <Property Name="Picture5" Type="varchar(max)" />
+    <Property Name="Picture6" Type="varchar(max)" />
+    <Property Name="XSQuantity" Type="int" Nullable="false" />
+    <Property Name="SQuantity" Type="int" Nullable="false" />
+    <Property Name="MQuantity" Type="int" Nullable="false" />
+    <Property Name="LQuantity" Type="int" Nullable="false" />
+    <Property Name="XlQuantity" Type="int" Nullable="false" />
+    <Property Name="XXlQuantity" Type="int" Nullable="false" />
+    <Property Name="isBestSeller" Type="int" Nullable="false" />
+    <Property Name="ProductCategory" Type="int" Nullable="false" />
+    <Property Name="PriceINR" Type="int" Nullable="false" />
+    <Property Name="PriceGBP" Type="int" Nullable="false" />
+    <Property Name="PriceEuro" Type="int" Nullable="false" />
+    <Property Name="PriceCAD" Type="int" Nullable="false" />
+    <Property Name="PriceUSD" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="varchar(max)" Nullable="false" />
+    <Property Name="Email" Type="varchar(max)" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ProfilePicture" Type="varchar(max)" />
+    <Property Name="isSubscribedToNewsLetter" Type="int" Nullable="false" />
+    <Property Name="seeModal" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__ADDRESS__UserID__3B75D760">
+    <End Role="USER" Type="Self.USER" Multiplicity="1" />
+    <End Role="ADDRESS" Type="Self.ADDRESS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ADDRESS">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CART__ProductID__48CFD27E">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="CART" Type="Self.CART" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CART">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CART__UserID__47DBAE45">
+    <End Role="USER" Type="Self.USER" Multiplicity="1" />
+    <End Role="CART" Type="Self.CART" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CART">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ORDER__AddressID__5165187F">
+    <End Role="ADDRESS" Type="Self.ADDRESS" Multiplicity="1" />
+    <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ADDRESS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDER">
+        <PropertyRef Name="AddressID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ORDER__ProductID__4E88ABD4">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDER">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ORDER__UserID__4D94879B">
+    <End Role="USER" Type="Self.USER" Multiplicity="1" />
+    <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDER">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ZeroToleranceDBModelStoreContainer">
+    <EntitySet Name="ADDRESS" EntityType="Self.ADDRESS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CART" EntityType="Self.CART" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDER" EntityType="Self.ORDER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ADDRESS__UserID__3B75D760" Association="Self.FK__ADDRESS__UserID__3B75D760">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="ADDRESS" EntitySet="ADDRESS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CART__ProductID__48CFD27E" Association="Self.FK__CART__ProductID__48CFD27E">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="CART" EntitySet="CART" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CART__UserID__47DBAE45" Association="Self.FK__CART__UserID__47DBAE45">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="CART" EntitySet="CART" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ORDER__AddressID__5165187F" Association="Self.FK__ORDER__AddressID__5165187F">
+      <End Role="ADDRESS" EntitySet="ADDRESS" />
+      <End Role="ORDER" EntitySet="ORDER" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ORDER__ProductID__4E88ABD4" Association="Self.FK__ORDER__ProductID__4E88ABD4">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="ORDER" EntitySet="ORDER" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ORDER__UserID__4D94879B" Association="Self.FK__ORDER__UserID__4D94879B">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="ORDER" EntitySet="ORDER" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ZeroToleranceDBModelStoreContainer" CdmEntityContainer="ZeroToleranceDBEntities">
+    <EntitySetMapping Name="ADDRESSes">
+      <EntityTypeMapping TypeName="ZeroToleranceDBModel.ADDRESS">
+        <MappingFragment StoreEntitySet="ADDRESS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+          <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+          <ScalarProperty Name="Town" ColumnName="Town" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CARTs">
+      <EntityTypeMapping TypeName="ZeroToleranceDBModel.CART">
+        <MappingFragment StoreEntitySet="CART">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductTotal" ColumnName="ProductTotal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ORDERs">
+      <EntityTypeMapping TypeName="ZeroToleranceDBModel.ORDER">
+        <MappingFragment StoreEntitySet="ORDER">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductTotal" ColumnName="ProductTotal" />
+          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+          <ScalarProperty Name="OrderTimestamp" ColumnName="OrderTimestamp" />
+          <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCTs">
+      <EntityTypeMapping TypeName="ZeroToleranceDBModel.PRODUCT">
+        <MappingFragment StoreEntitySet="PRODUCT">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ThumbnailPicture" ColumnName="ThumbnailPicture" />
+          <ScalarProperty Name="Picture1" ColumnName="Picture1" />
+          <ScalarProperty Name="Picture2" ColumnName="Picture2" />
+          <ScalarProperty Name="Picture3" ColumnName="Picture3" />
+          <ScalarProperty Name="Picture4" ColumnName="Picture4" />
+          <ScalarProperty Name="Picture5" ColumnName="Picture5" />
+          <ScalarProperty Name="Picture6" ColumnName="Picture6" />
+          <ScalarProperty Name="XSQuantity" ColumnName="XSQuantity" />
+          <ScalarProperty Name="SQuantity" ColumnName="SQuantity" />
+          <ScalarProperty Name="MQuantity" ColumnName="MQuantity" />
+          <ScalarProperty Name="LQuantity" ColumnName="LQuantity" />
+          <ScalarProperty Name="XlQuantity" ColumnName="XlQuantity" />
+          <ScalarProperty Name="XXlQuantity" ColumnName="XXlQuantity" />
+          <ScalarProperty Name="isBestSeller" ColumnName="isBestSeller" />
+          <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
+          <ScalarProperty Name="PriceINR" ColumnName="PriceINR" />
+          <ScalarProperty Name="PriceGBP" ColumnName="PriceGBP" />
+          <ScalarProperty Name="PriceEuro" ColumnName="PriceEuro" />
+          <ScalarProperty Name="PriceCAD" ColumnName="PriceCAD" />
+          <ScalarProperty Name="PriceUSD" ColumnName="PriceUSD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USERs">
+      <EntityTypeMapping TypeName="ZeroToleranceDBModel.USER">
+        <MappingFragment StoreEntitySet="USER">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+          <ScalarProperty Name="isSubscribedToNewsLetter" ColumnName="isSubscribedToNewsLetter" />
+          <ScalarProperty Name="seeModal" ColumnName="seeModal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

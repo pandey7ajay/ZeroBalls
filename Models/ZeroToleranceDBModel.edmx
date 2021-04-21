@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ZeroToleranceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ADDRESS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="AddressLine1" Type="varchar(max)" Nullable="false" />
+          <Property Name="AddressLine2" Type="varchar(max)" />
+          <Property Name="Town" Type="varchar(max)" />
+          <Property Name="City" Type="varchar(max)" Nullable="false" />
+          <Property Name="State" Type="varchar(max)" Nullable="false" />
+          <Property Name="Country" Type="varchar(max)" Nullable="false" />
+          <Property Name="Pincode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CART">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ProductTotal" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ORDER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ProductTotal" Type="int" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
+          <Property Name="OrderTimestamp" Type="datetime" Nullable="false" />
+          <Property Name="AddressID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="ThumbnailPicture" Type="varchar(max)" Nullable="false" />
+          <Property Name="Picture1" Type="varchar(max)" Nullable="false" />
+          <Property Name="Picture2" Type="varchar(max)" />
+          <Property Name="Picture3" Type="varchar(max)" />
+          <Property Name="Picture4" Type="varchar(max)" />
+          <Property Name="Picture5" Type="varchar(max)" />
+          <Property Name="Picture6" Type="varchar(max)" />
+          <Property Name="XSQuantity" Type="int" Nullable="false" />
+          <Property Name="SQuantity" Type="int" Nullable="false" />
+          <Property Name="MQuantity" Type="int" Nullable="false" />
+          <Property Name="LQuantity" Type="int" Nullable="false" />
+          <Property Name="XlQuantity" Type="int" Nullable="false" />
+          <Property Name="XXlQuantity" Type="int" Nullable="false" />
+          <Property Name="isBestSeller" Type="int" Nullable="false" />
+          <Property Name="ProductCategory" Type="int" Nullable="false" />
+          <Property Name="PriceINR" Type="int" Nullable="false" />
+          <Property Name="PriceGBP" Type="int" Nullable="false" />
+          <Property Name="PriceEuro" Type="int" Nullable="false" />
+          <Property Name="PriceCAD" Type="int" Nullable="false" />
+          <Property Name="PriceUSD" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="varchar(max)" Nullable="false" />
+          <Property Name="Email" Type="varchar(max)" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ProfilePicture" Type="varchar(max)" />
+          <Property Name="isSubscribedToNewsLetter" Type="int" Nullable="false" />
+          <Property Name="seeModal" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__ADDRESS__UserID__3B75D760">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="ADDRESS" Type="Self.ADDRESS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ADDRESS">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CART__ProductID__48CFD27E">
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="CART" Type="Self.CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CART__UserID__47DBAE45">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="CART" Type="Self.CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDER__AddressID__5165187F">
+          <End Role="ADDRESS" Type="Self.ADDRESS" Multiplicity="1" />
+          <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADDRESS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ORDER">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDER__ProductID__4E88ABD4">
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ORDER">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDER__UserID__4D94879B">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ORDER">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZeroToleranceDBModelStoreContainer">
+          <EntitySet Name="ADDRESS" EntityType="Self.ADDRESS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CART" EntityType="Self.CART" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ORDER" EntityType="Self.ORDER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ADDRESS__UserID__3B75D760" Association="Self.FK__ADDRESS__UserID__3B75D760">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="ADDRESS" EntitySet="ADDRESS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CART__ProductID__48CFD27E" Association="Self.FK__CART__ProductID__48CFD27E">
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+            <End Role="CART" EntitySet="CART" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CART__UserID__47DBAE45" Association="Self.FK__CART__UserID__47DBAE45">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="CART" EntitySet="CART" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDER__AddressID__5165187F" Association="Self.FK__ORDER__AddressID__5165187F">
+            <End Role="ADDRESS" EntitySet="ADDRESS" />
+            <End Role="ORDER" EntitySet="ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDER__ProductID__4E88ABD4" Association="Self.FK__ORDER__ProductID__4E88ABD4">
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+            <End Role="ORDER" EntitySet="ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDER__UserID__4D94879B" Association="Self.FK__ORDER__UserID__4D94879B">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="ORDER" EntitySet="ORDER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ZeroToleranceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ADDRESS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Town" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pincode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="USER" Relationship="Self.FK__ADDRESS__UserID__3B75D760" FromRole="ADDRESS" ToRole="USER" />
+          <NavigationProperty Name="ORDERs" Relationship="Self.FK__ORDER__AddressID__5165187F" FromRole="ADDRESS" ToRole="ORDER" />
+        </EntityType>
+        <EntityType Name="CART">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ProductTotal" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PRODUCT" Relationship="Self.FK__CART__ProductID__48CFD27E" FromRole="CART" ToRole="PRODUCT" />
+          <NavigationProperty Name="USER" Relationship="Self.FK__CART__UserID__47DBAE45" FromRole="CART" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="ORDER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ProductTotal" Type="Int32" Nullable="false" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="OrderTimestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ADDRESS" Relationship="Self.FK__ORDER__AddressID__5165187F" FromRole="ORDER" ToRole="ADDRESS" />
+          <NavigationProperty Name="PRODUCT" Relationship="Self.FK__ORDER__ProductID__4E88ABD4" FromRole="ORDER" ToRole="PRODUCT" />
+          <NavigationProperty Name="USER" Relationship="Self.FK__ORDER__UserID__4D94879B" FromRole="ORDER" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ThumbnailPicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Picture1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Picture2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Picture3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Picture4" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Picture5" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Picture6" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="XSQuantity" Type="Int32" Nullable="false" />
+          <Property Name="SQuantity" Type="Int32" Nullable="false" />
+          <Property Name="MQuantity" Type="Int32" Nullable="false" />
+          <Property Name="LQuantity" Type="Int32" Nullable="false" />
+          <Property Name="XlQuantity" Type="Int32" Nullable="false" />
+          <Property Name="XXlQuantity" Type="Int32" Nullable="false" />
+          <Property Name="isBestSeller" Type="Int32" Nullable="false" />
+          <Property Name="ProductCategory" Type="Int32" Nullable="false" />
+          <Property Name="PriceINR" Type="Int32" Nullable="false" />
+          <Property Name="PriceGBP" Type="Int32" Nullable="false" />
+          <Property Name="PriceEuro" Type="Int32" Nullable="false" />
+          <Property Name="PriceCAD" Type="Int32" Nullable="false" />
+          <Property Name="PriceUSD" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CARTs" Relationship="Self.FK__CART__ProductID__48CFD27E" FromRole="PRODUCT" ToRole="CART" />
+          <NavigationProperty Name="ORDERs" Relationship="Self.FK__ORDER__ProductID__4E88ABD4" FromRole="PRODUCT" ToRole="ORDER" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isSubscribedToNewsLetter" Type="Int32" Nullable="false" />
+          <Property Name="seeModal" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ADDRESSes" Relationship="Self.FK__ADDRESS__UserID__3B75D760" FromRole="USER" ToRole="ADDRESS" />
+          <NavigationProperty Name="CARTs" Relationship="Self.FK__CART__UserID__47DBAE45" FromRole="USER" ToRole="CART" />
+          <NavigationProperty Name="ORDERs" Relationship="Self.FK__ORDER__UserID__4D94879B" FromRole="USER" ToRole="ORDER" />
+        </EntityType>
+        <Association Name="FK__ADDRESS__UserID__3B75D760">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="ADDRESS" Type="Self.ADDRESS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ADDRESS">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDER__AddressID__5165187F">
+          <End Role="ADDRESS" Type="Self.ADDRESS" Multiplicity="1" />
+          <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADDRESS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ORDER">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CART__ProductID__48CFD27E">
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="CART" Type="Self.CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CART__UserID__47DBAE45">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="CART" Type="Self.CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDER__ProductID__4E88ABD4">
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ORDER">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDER__UserID__4D94879B">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ORDER">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZeroToleranceDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADDRESSes" EntityType="Self.ADDRESS" />
+          <EntitySet Name="CARTs" EntityType="Self.CART" />
+          <EntitySet Name="ORDERs" EntityType="Self.ORDER" />
+          <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
+          <EntitySet Name="USERs" EntityType="Self.USER" />
+          <AssociationSet Name="FK__ADDRESS__UserID__3B75D760" Association="Self.FK__ADDRESS__UserID__3B75D760">
+            <End Role="USER" EntitySet="USERs" />
+            <End Role="ADDRESS" EntitySet="ADDRESSes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDER__AddressID__5165187F" Association="Self.FK__ORDER__AddressID__5165187F">
+            <End Role="ADDRESS" EntitySet="ADDRESSes" />
+            <End Role="ORDER" EntitySet="ORDERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CART__ProductID__48CFD27E" Association="Self.FK__CART__ProductID__48CFD27E">
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+            <End Role="CART" EntitySet="CARTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CART__UserID__47DBAE45" Association="Self.FK__CART__UserID__47DBAE45">
+            <End Role="USER" EntitySet="USERs" />
+            <End Role="CART" EntitySet="CARTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDER__ProductID__4E88ABD4" Association="Self.FK__ORDER__ProductID__4E88ABD4">
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+            <End Role="ORDER" EntitySet="ORDERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDER__UserID__4D94879B" Association="Self.FK__ORDER__UserID__4D94879B">
+            <End Role="USER" EntitySet="USERs" />
+            <End Role="ORDER" EntitySet="ORDERs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ZeroToleranceDBModelStoreContainer" CdmEntityContainer="ZeroToleranceDBEntities">
+          <EntitySetMapping Name="ADDRESSes">
+            <EntityTypeMapping TypeName="ZeroToleranceDBModel.ADDRESS">
+              <MappingFragment StoreEntitySet="ADDRESS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CARTs">
+            <EntityTypeMapping TypeName="ZeroToleranceDBModel.CART">
+              <MappingFragment StoreEntitySet="CART">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductTotal" ColumnName="ProductTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDERs">
+            <EntityTypeMapping TypeName="ZeroToleranceDBModel.ORDER">
+              <MappingFragment StoreEntitySet="ORDER">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductTotal" ColumnName="ProductTotal" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="OrderTimestamp" ColumnName="OrderTimestamp" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTs">
+            <EntityTypeMapping TypeName="ZeroToleranceDBModel.PRODUCT">
+              <MappingFragment StoreEntitySet="PRODUCT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ThumbnailPicture" ColumnName="ThumbnailPicture" />
+                <ScalarProperty Name="Picture1" ColumnName="Picture1" />
+                <ScalarProperty Name="Picture2" ColumnName="Picture2" />
+                <ScalarProperty Name="Picture3" ColumnName="Picture3" />
+                <ScalarProperty Name="Picture4" ColumnName="Picture4" />
+                <ScalarProperty Name="Picture5" ColumnName="Picture5" />
+                <ScalarProperty Name="Picture6" ColumnName="Picture6" />
+                <ScalarProperty Name="XSQuantity" ColumnName="XSQuantity" />
+                <ScalarProperty Name="SQuantity" ColumnName="SQuantity" />
+                <ScalarProperty Name="MQuantity" ColumnName="MQuantity" />
+                <ScalarProperty Name="LQuantity" ColumnName="LQuantity" />
+                <ScalarProperty Name="XlQuantity" ColumnName="XlQuantity" />
+                <ScalarProperty Name="XXlQuantity" ColumnName="XXlQuantity" />
+                <ScalarProperty Name="isBestSeller" ColumnName="isBestSeller" />
+                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
+                <ScalarProperty Name="PriceINR" ColumnName="PriceINR" />
+                <ScalarProperty Name="PriceGBP" ColumnName="PriceGBP" />
+                <ScalarProperty Name="PriceEuro" ColumnName="PriceEuro" />
+                <ScalarProperty Name="PriceCAD" ColumnName="PriceCAD" />
+                <ScalarProperty Name="PriceUSD" ColumnName="PriceUSD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERs">
+            <EntityTypeMapping TypeName="ZeroToleranceDBModel.USER">
+              <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="isSubscribedToNewsLetter" ColumnName="isSubscribedToNewsLetter" />
+                <ScalarProperty Name="seeModal" ColumnName="seeModal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
